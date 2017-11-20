@@ -3,4 +3,5 @@
 
 @section('content')
     {{ url('/') }}
+    @widget('test')
 @endsection
