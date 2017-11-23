@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Widgets;
+namespace App\Widgets\Backend;
 
 use Arrilot\Widgets\AbstractWidget;
 
-class LeftSide extends AbstractWidget
+class Header extends AbstractWidget
 {
     /**
      * The configuration array.
@@ -21,7 +21,7 @@ class LeftSide extends AbstractWidget
     {
         //
 
-        return view('widgets.left_side', [
+        return view('widgets.header', [
             'config' => $this->config,
         ]);
     }

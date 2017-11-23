@@ -9,6 +9,7 @@ class HomeController extends BackendController
 
     public function index()
     {
+        //echo base_path('resources/views').'/widgets/'; die;
         return $this->view('home::home');
     }
 }

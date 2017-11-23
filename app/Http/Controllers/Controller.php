@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\View;
 
 class Controller extends BaseController
 {
@@ -27,7 +28,7 @@ class Controller extends BaseController
         $viewDir = str_replace('{module_path}', implode('/', array_slice($namespace, 2, 3)), $this->viewPathStructure);
         $viewDir = app_path($viewDir);
 
-        view()->addNamespace($moduleName, $viewDir);
+        View::addNamespace($moduleName, $viewDir);
     }
 
     public function getAppSide()
