@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\View;
 
-class BackendController extends Controller
+abstract class BackendController extends Controller
 {
     public function __construct()
     {
