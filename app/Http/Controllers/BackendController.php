@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Classes\BackendUrlGenerator;
 use Illuminate\Support\Facades\View;
 
 abstract class BackendController extends Controller
@@ -12,8 +13,9 @@ abstract class BackendController extends Controller
         parent::__construct();
 
         // Webroot /backend
-        $urlGenerator = app()->url;
-        $urlGenerator->forceRootUrl(rtrim($urlGenerator->to('/'), '/') . '/backend/');
+        $routes = app()['router']->getRoutes();
+        $customUrlGenerator = new BackendUrlGenerator($routes, app()->make('request'));
+        app()->instance('url', $customUrlGenerator);
 
         // Views path
         View::addLocation(resource_path('views') . '/backend/');
