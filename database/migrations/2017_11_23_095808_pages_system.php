@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableControl extends Migration
+class PagesSystem extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableControl extends Migration
      */
     public function up()
     {
-        Schema::create('control', function (Blueprint $table) {
+        Schema::create('pages_system', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('status');
             $table->string('alias')->unique();
@@ -31,6 +31,6 @@ class CreateTableControl extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('control');
+        Schema::dropIfExists('pages_system');
     }
 }
