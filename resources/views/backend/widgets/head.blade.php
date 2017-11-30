@@ -15,6 +15,8 @@
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="{{asset('css/skins/skin-blue.min.css')}}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{asset('plugins/iCheck/flat/blue.css')}}">
     <!-- CSS style -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 

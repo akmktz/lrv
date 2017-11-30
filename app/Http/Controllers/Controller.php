@@ -13,6 +13,7 @@ abstract class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $viewPathStructure = 'Http/{module_path}/Views';
+    protected $model;
 
     public function __construct()
     {

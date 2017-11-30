@@ -35,7 +35,7 @@
             {{ csrf_field() }}
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
-                <a class="btn btn-default" href="{{route('adminPages')}}">Отмена</a>
+                <a class="btn btn-default" href="{{route('adminPages')}}">Закрыть</a>
             </div>
         </form>
     </div>

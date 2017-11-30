@@ -2,9 +2,9 @@
 
 namespace App\Http\Modules\Pages\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Http\Classes\BaseModel;
 
-class PagesSystem extends Model
+class PagesSystem extends BaseModel
 {
     public $table = 'pages_system';
     //

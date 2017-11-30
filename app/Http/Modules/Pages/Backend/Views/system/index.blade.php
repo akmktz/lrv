@@ -1,6 +1,5 @@
 @extends('layout')
 
-
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
@@ -20,20 +19,9 @@
                 <!-- Check all button -->
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                 <div class="pull-right">
-                    1-50/200
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                    </div>
-                    <!-- /.btn-group -->
+                {{ $list->links() }}
+                <!-- /.btn-group -->
                 </div>
                 <!-- /.pull-right -->
             </div>
@@ -53,7 +41,8 @@
 
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
+                            <td><a href="#" class="js-status" data-id="{{$obj->id}}" data-val="{{$obj->status ? 1 : 0}}"
+                                ><i class="fa fa-fw {{$obj->getStatusClass()}}"></i></a></td>
                             <td><a href="{{route('adminPage', [$obj->id])}}">{{$obj->name}}</a></td>
                             <td><a href="{{route('adminPage', [$obj->id])}}">{{$obj->alias}}</a></td>
                             <td><a href="#" data-toggle="popover"
@@ -73,24 +62,15 @@
                 <!-- Check all button -->
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
                 <div class="pull-right">
-                    1-50/200
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                        <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                    </div>
-                    <!-- /.btn-group -->
+                {{ $list->links() }}
+                <!-- /.btn-group -->
                 </div>
                 <!-- /.pull-right -->
             </div>
         </div>
     </div>
     <!-- /. box -->
+    <span id="js-page-parameters" data-url="{{$url}}" data-token="{{ csrf_token() }}"></span>
 @endsection
+

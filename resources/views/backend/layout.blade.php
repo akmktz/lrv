@@ -60,8 +60,11 @@
 <script src="{{asset('js/adminlte.min.js')}}"></script>
 <!-- CK Editor -->
 <script src="{{asset('bower_components/ckeditor/ckeditor.js')}}"></script>
+<!-- iCheck -->
+<script src="{{asset('/plugins/iCheck/icheck.min.js')}}"></script>
 <!-- CMS scripts -->
 <script src="{{asset('js/init.js')}}"></script>
+<script src="{{asset('js/main.js')}}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
