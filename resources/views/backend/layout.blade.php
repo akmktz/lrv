@@ -61,7 +61,9 @@
 <!-- CK Editor -->
 <script src="{{asset('bower_components/ckeditor/ckeditor.js')}}"></script>
 <!-- iCheck -->
-<script src="{{asset('/plugins/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
+<!-- Noty -->
+<script src="{{asset('js/noty.min.js')}}"></script>
 <!-- CMS scripts -->
 <script src="{{asset('js/init.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>

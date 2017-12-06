@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ControlTable extends Seeder
+class Pages extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +11,7 @@ class ControlTable extends Seeder
      */
     public function run()
     {
-        DB::table('control')->insert([
+        DB::table('pages_system')->insert([
             'id' => '1',
             'status' => true,
             'alias' => 'home',
@@ -23,5 +22,15 @@ class ControlTable extends Seeder
             'updated_at' => new DateTime,
         ]);
 
+        DB::table('pages_system')->insert([
+            'id' => '2',
+            'status' => true,
+            'alias' => 'products',
+            'name' => 'Products',
+            'h1' => 'Products',
+            'text' => 'Products',
+            'created_at' => new DateTime,
+            'updated_at' => new DateTime,
+        ]);
     }
 }

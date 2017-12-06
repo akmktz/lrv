@@ -1,3 +1,15 @@
+// Notify
+function notyAlert(message, type, timeout) {
+    new Noty({
+        text: message,
+        type: (type ? type : 'alert'),
+        timeout: (timeout ? timeout : 7000),
+        closeWith: ['click'],
+        progressBar: true,
+        layout: 'bottomRight'
+    }).show();
+}
+
 $(function () {
     // Popover
     $('[data-toggle="popover"]').popover();

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{asset('css/skins/skin-blue.min.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('plugins/iCheck/flat/blue.css')}}">
+    <!-- Noty -->
+    <link rel="stylesheet" href="{{asset('css/noty.min.css')}}">
     <!-- CSS style -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 

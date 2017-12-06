@@ -56,6 +56,13 @@ class SystemController extends BackendController
             ];
         }
 
+        if ($id == 1) {
+            return [
+                'success' => false,
+                'message' => 'Домашнюю страницу нельзя заблокировать',
+            ];
+        }
+
         $obj = $this->model->find((int)$id);
         if (!$obj) {
             return [

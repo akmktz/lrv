@@ -177,6 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Arrilot\Widgets\ServiceProvider::class,
+        'Prologue\Alerts\AlertsServiceProvider',
 
     ],
 
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Widget'       => Arrilot\Widgets\Facade::class,
         'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,
+        'Alert' => 'Prologue\Alerts\Facades\Alert',
     ],
 
 ];

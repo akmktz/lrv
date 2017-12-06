@@ -57,19 +57,14 @@ $(".js-status").click(function (e) {
 
                 $tag.toggleClass("text-green");
                 $tag.toggleClass("text-red");
-            }
 
-            if (response.error) {
-                wHTML.message({
-                    message: response.error,
-                    type: 'error'
-                });
+                notyAlert('Статус изменен', 'success', 700);
+            } else {
+                notyAlert(response.message ? response.message : 'Ошибка', 'error');
             }
-
-            wHTML.message({
-                message: response.message,
-                type: 'success'
-            });
+        },
+        error: function () {
+            notyAlert('Ошибка связи', 'error');
         }
     });
 
