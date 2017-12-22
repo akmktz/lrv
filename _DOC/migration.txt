@@ -1,9 +1,9 @@
-artisan migrate:install
-artisan make:migration <migration name> --create=<table name>
+php artisan migrate:install
+php artisan make:migration <migration name> --create=<table name>
 
 
-artisan migrate:status
-artisan migrate
+php artisan migrate:status
+php artisan migrate
 
 php artisan migrate:rollback --step=<количество откатываемых миграций>
 
