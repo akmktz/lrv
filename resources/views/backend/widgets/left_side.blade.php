@@ -26,24 +26,76 @@
             </div>
         </form>
         <!-- /.search form -->
+<?php
+     $menu = [
+         [
+             'icon' => 'fa-link',
+             'url' => 'pages',
+             'name' => 'Системные страницы',
+         ],
+         [
+             'icon' => 'fa-link',
+             'name' => 'Каталог',
+             'items' => [
+                 [
+                     'url' => 'groups',
+                     'name' => 'Группы товаров',
+                 ],
+                 [
+                     'url' => 'items',
+                     'name' => 'Товары',
+                 ],
+             ],
+         ],
+     ];
 
+     $requestPath = Request::path();
+     foreach ($menu as $key => $el) {
+         if (!is_array($el)) {
+             continue;
+         }
+
+         $menu[$key]['active'] = (!empty($el['url']) && $requestPath === 'admin' . '/' . $el['url']);
+         if (!empty($el['items'])) {
+             foreach ($el['items'] as $subKey => $subEl) {
+                 if (!is_array($subEl)) {
+                     continue;
+                 }
+
+                 $active = $requestPath === 'admin' . '/' . $subEl['url'];
+                 $menu[$key]['items'][$subKey]['active'] = $active;
+                 if ($active) {
+                    $menu[$key]['active'] = true;
+                 }
+             }
+         }
+     }
+?>
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active"><a href="{{url('pages')}}"><i class="fa fa-link"></i> <span>Системные страницы</span></a></li>
-            <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                    <span class="pull-right-container">
+            @foreach($menu as $el)
+                @if (isset($el['items']))
+                    <li class="treeview {{$el['active'] ? 'active' : ''}}">
+                        <a href="#"><i class="fa {{$el['icon']}}"></i> <span>{{$el['name']}}</span>
+                            <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
-                </ul>
-            </li>
+                        <ul class="treeview-menu">
+                            @foreach($el['items'] as $subEl)
+                                <li class="{{$subEl['active'] ? 'active' : ''}}">
+                                    <a href="{{url($subEl['url'])}}">{{$subEl['name']}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @else
+                    <li class="{{$el['active'] ? 'active' : ''}}">
+                        <a href="{{url($el['url'])}}">
+                            <i class="fa {{$el['icon']}}"></i> <span>{{$el['name']}}</span></a>
+                    </li>
+                @endif
+            @endforeach
         </ul>
         <!-- /.sidebar-menu -->
     </section>

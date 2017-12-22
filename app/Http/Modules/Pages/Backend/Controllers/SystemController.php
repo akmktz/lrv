@@ -3,7 +3,7 @@
 namespace App\Http\Modules\Pages\Backend\Controllers;
 
 use App\Http\Controllers\BackendController;
-use App\Http\Modules\Pages\Models\CatalogGroups;
+use App\Http\Modules\Pages\Models\PagesSystem;
 use Illuminate\Http\Request;
 
 class SystemController extends BackendController
@@ -11,7 +11,7 @@ class SystemController extends BackendController
     public function __construct()
     {
         parent::__construct();
-        $this->model = new CatalogGroups();
+        $this->model = new PagesSystem();
     }
 
     public function index(Request $request)
@@ -23,7 +23,7 @@ class SystemController extends BackendController
 
     public function edit($id)
     {
-        $obj = CatalogGroups::find((int)$id);
+        $obj = PagesSystem::find((int)$id);
         return $this->view('pages::system.edit', compact('obj'));
     }
 
