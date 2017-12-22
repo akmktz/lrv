@@ -1,0 +1,15 @@
+artisan migrate:install
+artisan make:migration <migration name> --create=<table name>
+
+
+artisan migrate:status
+artisan migrate
+
+php artisan migrate:rollback --step=<количество откатываемых миграций>
+
+
+php artisan make:seeder UsersTableSeeder
+
+ALL: php artisan db:seed
+php artisan db:seed --class=UsersTableSeeder
+
