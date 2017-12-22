@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Http\Modules\Pages\Backend\Controllers;
+namespace App\Http\Modules\Catalog\Backend\Controllers;
 
 use App\Http\Controllers\BackendController;
-use App\Http\Modules\Pages\Models\CatalogGroups;
+use App\Http\Modules\Catalog\Backend\Models\Groups;
 use Illuminate\Http\Request;
 
-class SystemController extends BackendController
+class GroupsController extends BackendController
 {
     public function __construct()
     {
         parent::__construct();
-        $this->model = new CatalogGroups();
+        $this->model = new Groups();
     }
 
     public function index(Request $request)
     {
-        $list = $this->model->orderBy('name', 'ASC')->paginate(2);
+        $list = $this->model->orderBy('name', 'ASC')->paginate(50);
         $url = $request->getPathInfo();
-        return $this->view('pages::system.index', compact('url', 'list'));
+        return $this->view('catalog::groups.index', compact('url', 'list'));
     }
 
     public function edit($id)
     {
-        $obj = CatalogGroups::find((int)$id);
-        return $this->view('pages::system.edit', compact('obj'));
+        $obj = Groups::find((int)$id);
+        return $this->view('catalog::groups.edit', compact('obj'));
     }
 
     public function save(Request $request, $id)
@@ -43,7 +43,7 @@ class SystemController extends BackendController
             $obj->save();
         } catch(\Exception $e) {}
 
-        return $this->view('pages::system.edit', compact('obj'));
+        return $this->view('catalog::groups.edit', compact('obj'));
     }
 
     public function status(Request $request)

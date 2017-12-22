@@ -12,3 +12,22 @@ Route::get('/admin/pages/{id}', '\App\Http\Modules\Pages\Backend\Controllers\Sys
 Route::post('/admin/pages/{id}', '\App\Http\Modules\Pages\Backend\Controllers\SystemController@save')
     ->where('id', '[\d]+');
 Route::get('/admin/pages', '\App\Http\Modules\Pages\Backend\Controllers\SystemController@index')->name('adminPages');
+
+// Catalog
+// Groups
+Route::post('/admin/groups/status/', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@status');
+Route::get('/admin/groups/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@edit')
+    ->where('id', '[\d]+')
+    ->name('adminPage');
+Route::post('/admin/groups/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@save')
+    ->where('id', '[\d]+');
+Route::get('/admin/groups', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@index')->name('adminGroups');
+// Items
+Route::post('/admin/items/status/', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@status');
+Route::get('/admin/items/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@edit')
+    ->where('id', '[\d]+')
+    ->name('adminPage');
+Route::post('/admin/items/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@save')
+    ->where('id', '[\d]+');
+Route::get('/admin/items', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@index')->name('adminItems');
+
