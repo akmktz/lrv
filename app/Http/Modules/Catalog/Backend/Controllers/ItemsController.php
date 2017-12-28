@@ -18,13 +18,13 @@ class ItemsController extends BackendController
     {
         $list = $this->model->orderBy('name', 'ASC')->paginate(50);
         $url = $request->getPathInfo();
-        return $this->view('catalog::groups.index', compact('url', 'list'));
+        return $this->view('catalog::items.index', compact('url', 'list'));
     }
 
     public function edit($id)
     {
         $obj = Items::find((int)$id);
-        return $this->view('catalog::groups.edit', compact('obj'));
+        return $this->view('catalog::items.edit', compact('obj'));
     }
 
     public function save(Request $request, $id)
@@ -43,7 +43,7 @@ class ItemsController extends BackendController
             $obj->save();
         } catch(\Exception $e) {}
 
-        return $this->view('catalog::groups.edit', compact('obj'));
+        return $this->view('catalog::items.edit', compact('obj'));
     }
 
     public function status(Request $request)

@@ -55,14 +55,14 @@
              continue;
          }
 
-         $menu[$key]['active'] = (!empty($el['url']) && $requestPath === 'admin' . '/' . $el['url']);
+         $menu[$key]['active'] = (!empty($el['url']) && !strncasecmp($requestPath, $elementPath = 'admin' . '/' . $el['url'], strlen($elementPath)));
          if (!empty($el['items'])) {
              foreach ($el['items'] as $subKey => $subEl) {
                  if (!is_array($subEl)) {
                      continue;
                  }
 
-                 $active = $requestPath === 'admin' . '/' . $subEl['url'];
+                 $active = !strncasecmp($requestPath, $elementPath = 'admin' . '/' . $subEl['url'], strlen($elementPath));
                  $menu[$key]['items'][$subKey]['active'] = $active;
                  if ($active) {
                     $menu[$key]['active'] = true;

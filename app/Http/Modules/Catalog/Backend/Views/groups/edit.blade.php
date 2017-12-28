@@ -16,6 +16,14 @@
                     </label>
                 </div>
                 <div class="form-group">
+                    <label>Родитель</label>
+                    <select class="form-control" name="parent_id">
+                        @foreach($groups as $el)
+                            <option value="{{$el['id']}}" {{$el['selected']}}>{{$el['name']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="inputName">Наименование</label>
                     <input type="text" class="form-control" id="inputName" name="name" value="{{$obj->name}}">
                 </div>
@@ -31,11 +39,15 @@
                     <label for="inputText">Описание</label>
                     <textarea id="inputText" class="ck-editor" name="text" rows="10" cols="80">{{$obj->text}}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="inputSort">Сортировка</label>
+                    <input type="number" class="form-control max-w-100" id="inputSort" name="sort" value="{{$obj->sort}}">
+                </div>
             </div>
             {{ csrf_field() }}
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Сохранить</button>
-                <a class="btn btn-default" href="{{route('adminPages')}}">Закрыть</a>
+                <a class="btn btn-default" href="{{route('adminGroups')}}">Закрыть</a>
             </div>
         </form>
     </div>

@@ -35,8 +35,8 @@
                             <td><input type="checkbox"></td>
                             <td><a href="#" class="js-status" data-id="{{$obj->id}}" data-val="{{$obj->status ? 1 : 0}}"
                                 ><i class="fa fa-fw {{$obj->getStatusClass()}}"></i></a></td>
-                            <td><a href="{{route('adminPage', [$obj->id])}}">{{$obj->name}}</a></td>
-                            <td><a href="{{route('adminPage', [$obj->id])}}">{{$obj->alias}}</a></td>
+                            <td><a href="{{route('adminItem', [$obj->id])}}">{{$obj->name}}</a></td>
+                            <td><a href="{{route('adminItem', [$obj->id])}}">{{$obj->alias}}</a></td>
                             <td><a href="#" data-toggle="popover"
                                    title="Управление" data-trigger="focus" data-content="К сожалению еще не реализовано">
                                     <i class="fa fa-gear js-dropDownMenu"></i></a></td>
