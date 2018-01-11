@@ -19,7 +19,7 @@
                     <label>Родитель</label>
                     <select class="form-control" name="parent_id">
                         @foreach($groups as $el)
-                            <option value="{{$el['id']}}" {{$el['selected']}}>{{$el['name']}}</option>
+                            <option value="{{$el['id']}}" {{$el['selected']}}>{{$el['name_hierarchical']}}</option>
                         @endforeach
                     </select>
                 </div>

@@ -16,6 +16,14 @@
                     </label>
                 </div>
                 <div class="form-group">
+                    <label>Родитель</label>
+                    <select class="form-control" name="group_id">
+                        @foreach($groups as $el)
+                            <option value="{{$el['id']}}" {{$el['selected']}}>{{$el['name_hierarchical']}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="inputName">Наименование</label>
                     <input type="text" class="form-control" id="inputName" name="name" value="{{$obj->name}}">
                 </div>

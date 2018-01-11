@@ -14,6 +14,15 @@
                                 <table class="" width="100%">
                                     <tbody>
                                     <tr>
+                                        <td width="70px">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <a href="#" class="js-status" data-id="{{$obj['id'] }}"
+                                                       data-val="{{$obj['status'] ? 1 : 0}}"
+                                                    ><i class="fa fa-fw {{$obj['obj']->getStatusClass()}}"></i></a>
+                                                </label>
+                                            </div>
+                                            </td>
                                         <td><a href="{{route('adminGroup', [$obj['id']])}}">{{$obj['name']}}</a></td>
                                         <td width="30%"><a href="{{route('adminGroup', [$obj['id']])}}">{{$obj['alias']}}</a></td>
                                     </tr>
