@@ -9,6 +9,7 @@
         <!-- /.box-header -->
         <!-- form start -->
         <form role="form" method="POST">
+            {{--action="{{route('adminItem', [$obj->id ?: 'add'])}}">--}}
             <div class="box-body">
                 <div class="checkbox">
                     <label>

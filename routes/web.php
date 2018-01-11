@@ -24,6 +24,9 @@ Route::post('/admin/groups/{id}', '\App\Http\Modules\Catalog\Backend\Controllers
 Route::get('/admin/groups', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@index')->name('adminGroups');
 // Items
 Route::post('/admin/items/status/', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@status');
+Route::post('/admin/items/add', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@save');
+Route::get('/admin/items/add', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@add')
+    ->name('adminAddItem');
 Route::get('/admin/items/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@edit')
     ->where('id', '[\d]+')
     ->name('adminItem');

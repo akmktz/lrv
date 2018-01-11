@@ -11,6 +11,10 @@
                 <!-- Check all button -->
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
+                &nbsp;
+                <a type="button" href="{{route('adminAddItem')}}"
+                        class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>
+                    Добавить</a>
                 <div class="pull-right">
                 {{ $list->links() }}
                 <!-- /.btn-group -->
@@ -54,6 +58,10 @@
                 <!-- Check all button -->
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
+                &nbsp;
+                <a type="button" href="{{route('adminAddItem')}}"
+                   class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>
+                    Добавить</a>
                 <div class="pull-right">
                 {{ $list->links() }}
                 <!-- /.btn-group -->

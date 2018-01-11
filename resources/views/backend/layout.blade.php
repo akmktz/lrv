@@ -68,8 +68,13 @@
 <script src="{{asset('js/init.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
+<script>
+    @if (count($errors) > 0)
+        @foreach (is_array($errors) ? $errors : $errors->all() as $error)
+            notyAlert('{{ $error }}', 'error');
+        @endforeach
+    @endif
+</script>
+
 </body>
 </html>
