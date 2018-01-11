@@ -14,16 +14,8 @@
                                 <table class="" width="100%">
                                     <tbody>
                                     <tr>
-                                        {{--<td width="50">--}}
-                                            {{--<a href="#" class="js-status" data-id="{{$obj->id}}" data-val="{{$obj->status ? 1 : 0}}"--}}
-                                            {{--><i class="fa fa-fw {{$obj->getStatusClass()}}"></i></a>--}}
-                                        {{--</td>--}}
-                                        {{--<td><a href="{{route('adminGroup', [$obj->id])}}">{{$obj->name}}</a></td>--}}
                                         <td><a href="{{route('adminGroup', [$obj['id']])}}">{{$obj['name']}}</a></td>
                                         <td width="30%"><a href="{{route('adminGroup', [$obj['id']])}}">{{$obj['alias']}}</a></td>
-                                        {{--<td width="50"><a href="#" data-toggle="popover"--}}
-                                                          {{--title="Управление" data-trigger="focus" data-content="К сожалению еще не реализовано">--}}
-                                                {{--<i class="fa fa-gear js-dropDownMenu"></i></a></td>--}}
                                     </tr>
                                     </tbody>
                                 </table>
