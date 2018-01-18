@@ -26,11 +26,11 @@ Route::get('/admin/groups', '\App\Http\Modules\Catalog\Backend\Controllers\Group
 Route::post('/admin/items/status/', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@status');
 Route::post('/admin/items/add', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@save');
 Route::get('/admin/items/add', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@add')
-    ->name('adminAddItem');
+    ->name('adminItemsAdd');
 Route::get('/admin/items/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@edit')
     ->where('id', '[\d]+')
-    ->name('adminItem');
+    ->name('adminItemsEdit');
 Route::post('/admin/items/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@save')
     ->where('id', '[\d]+');
-Route::get('/admin/items', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@index')->name('adminItems');
+Route::get('/admin/items', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@index')->name('adminItemsList');
 

@@ -12,7 +12,7 @@
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
                 &nbsp;
-                <a type="button" href="{{route('adminAddItem')}}"
+                <a type="button" href="{{route($routeNameAdd)}}"
                         class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>
                     Добавить</a>
                 <div class="pull-right">
@@ -38,8 +38,8 @@
                             <td><input type="checkbox"></td>
                             <td><a href="#" class="js-status" data-id="{{$obj->id}}" data-val="{{$obj->status ? 1 : 0}}"
                                 ><i class="fa fa-fw {{$obj->getStatusClass()}}"></i></a></td>
-                            <td><a href="{{route('adminItem', [$obj->id])}}">{{$obj->name}}</a></td>
-                            <td><a href="{{route('adminItem', [$obj->id])}}">{{$obj->alias}}</a></td>
+                            <td><a href="{{route($routeNameEdit, [$obj->id])}}">{{$obj->name}}</a></td>
+                            <td><a href="{{route($routeNameEdit, [$obj->id])}}">{{$obj->alias}}</a></td>
                             <td><a href="#" data-toggle="popover" title="Управление" data-trigger="focus"
                                    data-content="К сожалению еще не реализовано">
                                     <i class="fa fa-gear js-dropDownMenu"></i></a>
@@ -59,7 +59,7 @@
                 <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                 </button>
                 &nbsp;
-                <a type="button" href="{{route('adminAddItem')}}"
+                <a type="button" href="{{route($routeNameAdd)}}"
                    class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>
                     Добавить</a>
                 <div class="pull-right">
@@ -71,6 +71,6 @@
         </div>
     </div>
     <!-- /. box -->
-    <span id="js-page-parameters" data-url="{{$url}}" data-token="{{ csrf_token() }}"></span>
+    <span id="js-page-parameters" data-url="{{route($routeNameList)}}" data-token="{{ csrf_token() }}"></span>
 @endsection
 

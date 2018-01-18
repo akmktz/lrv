@@ -9,9 +9,30 @@ use Illuminate\Support\Facades\View;
 
 abstract class BackendController extends Controller
 {
+    protected $moduleName;
+    protected $controllerName;
+    protected $routeNameList;
+    protected $routeNameEdit;
+    protected $viewData = [];
+
     public function __construct()
     {
         parent::__construct();
+
+        // Module and controller names
+        $temp = preg_split('/Modules\\\\(.*?)\\\\(.*)\\\\(.*?)$/', static::class, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $this->moduleName = isset($temp[1]) ? strtolower($temp[1]) : '';
+        $this->controllerName = isset($temp[3]) ? str_replace('controller', '', strtolower($temp[3])) : '';
+
+        // Route names
+        $this->routeNameList = 'admin' . ucfirst($this->controllerName) . 'List';
+        $this->routeNameAdd  = 'admin' . ucfirst($this->controllerName) . 'Add';
+        $this->routeNameEdit = 'admin' . ucfirst($this->controllerName) . 'Edit';
+
+        // View data
+        $this->assignViewData('routeNameList', $this->routeNameList);
+        $this->assignViewData('routeNameAdd',  $this->routeNameAdd);
+        $this->assignViewData('routeNameEdit', $this->routeNameEdit);
 
         // Webroot /backend
         $routes = app()['router']->getRoutes();
@@ -23,6 +44,11 @@ abstract class BackendController extends Controller
 
         // Widget path
         config(['laravel-widgets.default_namespace' => app()->getNamespace() . 'Widgets\Backend']);
+    }
+
+    protected function assignViewData($key, $value)
+    {
+        $this->viewData[$key] = $value;
     }
 
     protected function createHierarchicalList($data, $currentId = null, $disabledId = null, $parentId = 0, $indents = '', $level = 0)
@@ -112,5 +138,41 @@ abstract class BackendController extends Controller
             'success' => true,
             'message' => 'Статус изменен',
         ];
+    }
+
+    // ACTIONS
+
+    public function index()
+    {
+        $this->indexGetData();
+        return $this->view($this->moduleName . '::' . $this->controllerName . '.index', $this->viewData);
+    }
+
+    protected function indexGetData()
+    {
+        $this->assignViewData('list', $this->model->orderBy('name', 'ASC')->paginate(50));
+    }
+
+    public function add()
+    {
+        $this->addGetData();
+        return $this->view($this->moduleName . '::' . $this->controllerName . '.edit', $this->viewData);
+    }
+
+    protected function addGetData()
+    {
+        $this->assignViewData('item', $this->model);
+    }
+
+    public function edit($id)
+    {
+        $this->editGetData($id);
+        return $this->view($this->moduleName . '::' . $this->controllerName . '.edit', $this->viewData);
+    }
+
+    protected function editGetData($id)
+    {
+        $item = $this->model->find((int)$id);
+        $this->assignViewData('item', $item);
     }
 }
