@@ -1,4 +1,4 @@
-.box-footer button, a.btn {
+.box-footer button, .box-footer a.btn {
     margin-right: 20px;
     min-width: 150px;
 }
@@ -13,4 +13,8 @@
 
 .max-w-100 {
     max-width: 70px;
+}
+
+.pull-right button, .pull-right a.btn {
+    margin-right: 0;
 }

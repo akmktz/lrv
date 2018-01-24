@@ -211,6 +211,10 @@ abstract class BackendController extends Controller
                              ->withErrors(['error' => $e->getMessage()]);
         }
 
-        return redirect()->route($this->routeNameEdit, [$item->id]);
+        if ($request->get('submit-button') === 'save-and-close') {
+            return redirect()->route($this->routeNameList);
+        } else {
+            return redirect()->route($this->routeNameEdit, [$item->id]);
+        }
     }
 }
