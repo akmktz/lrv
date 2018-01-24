@@ -20,6 +20,7 @@ abstract class BackendController extends Controller
         parent::__construct();
 
         // Module and controller names
+        // TODO: Дописать проверки и исключения
         $temp = preg_split('/Modules\\\\(.*?)\\\\(.*)\\\\(.*?)$/', static::class, -1, PREG_SPLIT_DELIM_CAPTURE);
         $this->moduleName = isset($temp[1]) ? strtolower($temp[1]) : '';
         $this->controllerName = isset($temp[3]) ? str_replace('controller', '', strtolower($temp[3])) : '';
@@ -174,5 +175,41 @@ abstract class BackendController extends Controller
     {
         $item = $this->model->find((int)$id);
         $this->assignViewData('item', $item);
+    }
+
+    protected function saveGetData(Request $request)
+    {
+        return $request->only($this->model->getFillable()) + $this->model->getDefaultValuesForFields();
+    }
+
+    public function save(Request $request, $id = null)
+    {
+        $request->validate($this->model->getValidationRules($id));
+
+        $data = $this->saveGetData($request);
+
+        if ($id) {
+            $item = $this->model->find((int)$id);
+            if (!$item) {
+                return redirect()->route($this->routeNameEdit, [$item->id])
+                                 ->withErrors(['error' => 'Указан несуществующий id']);
+            }
+            $item->fill($data);
+        } else {
+            $item = $this->model->create($data);
+        }
+
+        try {
+            $item->save();
+
+            // UpdateOnCreate realisation:
+            //$item = $this->model->updateOrCreate(['id' => $id], $data);
+        } catch(\Exception $e) {
+            return redirect()->route($this->routeNameEdit, [$item->id])
+                             ->withInput()
+                             ->withErrors(['error' => $e->getMessage()]);
+        }
+
+        return redirect()->route($this->routeNameEdit, [$item->id]);
     }
 }

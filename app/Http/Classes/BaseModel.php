@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
+    protected $fillable = [];
+    protected $validationRules = [];
+    protected $defaultValuesForFields = [];
 
     public function getStatusClass()
     {
@@ -19,4 +22,20 @@ class BaseModel extends Model
             return 'text-red fa-ban';
         }
     }
+
+    public function getFillable()
+    {
+        return (array)$this->fillable;
+    }
+
+    public function getValidationRules($id = null)
+    {
+        return (array)$this->validationRules;
+    }
+
+    public function getDefaultValuesForFields()
+    {
+        return (array)$this->defaultValuesForFields;
+    }
+
 }

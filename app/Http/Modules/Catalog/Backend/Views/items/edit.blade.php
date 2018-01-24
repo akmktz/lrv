@@ -13,6 +13,7 @@
             <div class="box-body">
                 <div class="checkbox">
                     <label>
+                        {{--TODO Сделать old('status') --}}
                         <input type="checkbox" name="status" {{!$item || $item->status ? 'checked' : ''}}>Активен
                     </label>
                 </div>
