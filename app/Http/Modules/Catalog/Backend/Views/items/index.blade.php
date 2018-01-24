@@ -14,7 +14,8 @@
                 &nbsp;
                 <a type="button" href="{{route($routeNameAdd)}}"
                         class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>
-                    Добавить</a>
+                    Добавить
+                </a>
                 <div class="pull-right">
                 {{ $list->links() }}
                 <!-- /.btn-group -->
@@ -33,13 +34,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($list as $obj)
+                    @foreach($list as $item)
                         <tr>
                             <td><input type="checkbox"></td>
-                            <td><a href="#" class="js-status" data-id="{{$obj->id}}" data-val="{{$obj->status ? 1 : 0}}"
-                                ><i class="fa fa-fw {{$obj->getStatusClass()}}"></i></a></td>
-                            <td><a href="{{route($routeNameEdit, [$obj->id])}}">{{$obj->name}}</a></td>
-                            <td><a href="{{route($routeNameEdit, [$obj->id])}}">{{$obj->alias}}</a></td>
+                            <td><a href="#" class="js-status" data-id="{{$item->id}}" data-val="{{$item->status ? 1 : 0}}"
+                                ><i class="fa fa-fw {{$item->getStatusClass()}}"></i></a></td>
+                            <td><a href="{{route($routeNameEdit, [$item->id])}}">{{$item->name}}</a></td>
+                            <td><a href="{{route($routeNameEdit, [$item->id])}}">{{$item->alias}}</a></td>
                             <td><a href="#" data-toggle="popover" title="Управление" data-trigger="focus"
                                    data-content="К сожалению еще не реализовано">
                                     <i class="fa fa-gear js-dropDownMenu"></i></a>
@@ -71,6 +72,6 @@
         </div>
     </div>
     <!-- /. box -->
-    <span id="js-page-parameters" data-url="{{route($routeNameList)}}" data-token="{{ csrf_token() }}"></span>
+    <span id="js-page-parameters" data-url="{{route($routeNameList)}}" data-token="{{csrf_token()}}"></span>
 @endsection
 

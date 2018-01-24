@@ -4,7 +4,7 @@
 @section('content')
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">{{$obj ? 'Редактрование: ' . $obj->name : 'Новый'}}</h3>
+            <h3 class="box-title">{{$item ? 'Редактрование: ' . $item->name : 'Новый'}}</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -12,7 +12,8 @@
             <div class="box-body">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="status" {{!$obj || $obj->status ? 'checked' : ''}}>Активен
+                        {{--TODO Сделать old('status') --}}
+                        <input type="checkbox" name="status" {{!$item || $item->status ? 'checked' : ''}}>Активен
                     </label>
                 </div>
                 <div class="form-group">
@@ -25,29 +26,30 @@
                 </div>
                 <div class="form-group">
                     <label for="inputName">Наименование</label>
-                    <input type="text" class="form-control" id="inputName" name="name" value="{{$obj->name}}">
+                    <input type="text" class="form-control" id="inputName" name="name" value="{{old('name') ?: $item->name}}">
                 </div>
                 <div class="form-group">
                     <label for="inputAlias">Алиас</label>
-                    <input type="text" class="form-control" id="inputAlias" name="alias" value="{{$obj->alias}}">
+                    <input type="text" class="form-control" id="inputAlias" name="alias" value="{{old('alias') ?: $item->alias}}">
                 </div>
                 <div class="form-group">
                     <label for="inputH1">H1</label>
-                    <input type="text" class="form-control" id="inputH1" name="h1" value="{{$obj->h1}}">
+                    <input type="text" class="form-control" id="inputH1" name="h1" value="{{old('h1') ?: $item->h1}}">
                 </div>
                 <div class="form-group">
                     <label for="inputText">Описание</label>
-                    <textarea id="inputText" class="ck-editor" name="text" rows="10" cols="80">{{$obj->text}}</textarea>
+                    <textarea id="inputText" class="ck-editor" name="text" rows="10" cols="80">{{old('text') ?: $item->text}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="inputSort">Сортировка</label>
-                    <input type="number" class="form-control max-w-100" id="inputSort" name="sort" value="{{$obj->sort}}">
+                    <input type="number" class="form-control max-w-100" id="inputSort" name="sort" value="{{old('sort') ?: $item->sort}}">
                 </div>
             </div>
             {{ csrf_field() }}
             <div class="box-footer">
+                {{--TODO: Сохратить и закрыть--}}
                 <button type="submit" class="btn btn-primary">Сохранить</button>
-                <a class="btn btn-default" href="{{route('adminGroups')}}">Закрыть</a>
+                <a class="btn btn-default" href="{{route($routeNameList)}}">Закрыть</a>
             </div>
         </form>
     </div>

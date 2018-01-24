@@ -44,6 +44,7 @@
             </div>
             {{ csrf_field() }}
             <div class="box-footer">
+                {{--TODO: Сохратить и закрыть--}}
                 <button type="submit" class="btn btn-primary">Сохранить</button>
                 <a class="btn btn-default" href="{{route($routeNameList)}}">Закрыть</a>
             </div>

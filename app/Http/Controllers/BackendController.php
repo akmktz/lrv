@@ -154,6 +154,7 @@ abstract class BackendController extends Controller
         $this->assignViewData('list', $this->model->orderBy('name', 'ASC')->paginate(50));
     }
 
+    // TODO: $request->old('username');
     public function add()
     {
         $this->addGetData();
@@ -162,7 +163,7 @@ abstract class BackendController extends Controller
 
     protected function addGetData()
     {
-        $this->assignViewData('item', $this->model);
+        $this->assignViewData('item', clone $this->model);
     }
 
     public function edit($id)

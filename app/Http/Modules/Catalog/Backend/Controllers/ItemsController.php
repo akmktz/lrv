@@ -17,7 +17,8 @@ class ItemsController extends BackendController
 
     protected function addGetData()
     {
-        $this->assignViewData('item', $this->model);
+        $item = clone $this->model;
+        $this->assignViewData('item', $item);
         $groups = $this->createHierarchicalList(Groups::orderBy('sort', 'ASC')->get(), old('group_id'));
         $this->assignViewData('groups', $groups);
     }

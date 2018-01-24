@@ -4,7 +4,6 @@ namespace App\Http\Modules\Catalog\Backend\Controllers;
 
 use App\Http\Controllers\BackendController;
 use App\Http\Modules\Catalog\Backend\Models\Groups;
-use Illuminate\Http\Request;
 
 class GroupsController extends BackendController
 {
@@ -14,42 +13,29 @@ class GroupsController extends BackendController
         $this->model = new Groups();
     }
 
-    public function index(Request $request)
+    public function indexGetData()
     {
         $list = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get());
         array_shift($list);
-
-        $url = $request->getPathInfo();
-        return $this->view('catalog::groups.index', compact('url', 'list'));
+        $this->assignViewData('list',  $list);
     }
 
-    public function edit($id)
+    protected function addGetData()
     {
-        $obj = Groups::find((int)$id);
-        $groups = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get(), $obj->parent_id, $obj->id);
-        return $this->view('catalog::groups.edit', compact('groups', 'obj'));
+        $item = clone $this->model;
+        $item->sort = 0;
+        $this->assignViewData('item', $item);
+        $groups = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get(), old('parent_id'));
+        $this->assignViewData('groups', $groups);
     }
 
-    public function save(Request $request, $id)
+    protected function editGetData($id)
     {
-        $obj = $this->model->find((int)$id);
-        if (!$obj) {
-            $this->redirect('/');
-        }
+        $item = $this->model->find((int)$id);
+        $this->assignViewData('item', $item);
 
-        $obj->parent_id = is_numeric($request->input('parent_id')) ? $request->input('parent_id') : 0;
-        $obj->status = (boolean)$request->input('status');
-        $obj->alias = $request->input('alias');
-        $obj->name = $request->input('name');
-        $obj->h1 = $request->input('h1');
-        $obj->text = $request->input('text');
-        $obj->sort = $request->input('sort');
-
-        try {
-            $obj->save();
-        } catch(\Exception $e) {}
-
-        $groups = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get(), $obj->parent_id, $obj->id);
-        return $this->view('catalog::groups.edit', compact('groups', 'obj'));
+        $groups = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get(), old('parent_id') ?: $item->parent_id, $item->id);
+        $this->assignViewData('groups', $groups);
     }
+
 }

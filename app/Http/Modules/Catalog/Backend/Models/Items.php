@@ -6,7 +6,6 @@ namespace App\Http\Modules\Catalog\Backend\Models;
 class Items extends \App\Http\Modules\Catalog\Models\Items
 {
     protected $fillable = ['group_id', 'status', 'alias', 'name', 'h1', 'text', 'sort'];
-    protected $defaultValuesForFields = ['status' => false];
 
     public function getValidationRules($id = null)
     {
@@ -16,4 +15,5 @@ class Items extends \App\Http\Modules\Catalog\Models\Items
             'name'     => 'required|min:3|max:255',
         ];
     }
+
 }

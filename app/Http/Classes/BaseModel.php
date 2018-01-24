@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BaseModel extends Model
 {
     protected $fillable = [];
-    protected $validationRules = [];
-    protected $defaultValuesForFields = [];
+    protected $defaultValuesForFields = ['status' => false];
 
     public function getStatusClass()
     {
@@ -30,7 +29,10 @@ class BaseModel extends Model
 
     public function getValidationRules($id = null)
     {
-        return (array)$this->validationRules;
+        return [
+            'alias'    => 'required|unique:catalog_items,alias,' . (int)$id . '|min:2|max:255',
+            'name'     => 'required|min:3|max:255',
+        ];
     }
 
     public function getDefaultValuesForFields()

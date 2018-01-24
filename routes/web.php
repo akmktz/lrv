@@ -8,20 +8,26 @@ Route::get('/admin/', '\App\Http\Modules\Home\Backend\Controllers\HomeController
 Route::post('/admin/pages/status/', '\App\Http\Modules\Pages\Backend\Controllers\SystemController@status');
 Route::get('/admin/pages/{id}', '\App\Http\Modules\Pages\Backend\Controllers\SystemController@edit')
     ->where('id', '[\d]+')
-    ->name('adminPage');
+    ->name('adminSystemEdit');
 Route::post('/admin/pages/{id}', '\App\Http\Modules\Pages\Backend\Controllers\SystemController@save')
     ->where('id', '[\d]+');
-Route::get('/admin/pages', '\App\Http\Modules\Pages\Backend\Controllers\SystemController@index')->name('adminPages');
+Route::get('/admin/pages', '\App\Http\Modules\Pages\Backend\Controllers\SystemController@index')
+    ->name('adminSystemList');
 
 // Catalog
 // Groups
 Route::post('/admin/groups/status/', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@status');
+Route::post('/admin/groups/add', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@save');
+Route::get('/admin/groups/add', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@add')
+    ->name('adminGroupsAdd');
 Route::get('/admin/groups/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@edit')
     ->where('id', '[\d]+')
     ->name('adminGroup');
 Route::post('/admin/groups/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@save')
-    ->where('id', '[\d]+');
-Route::get('/admin/groups', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@index')->name('adminGroups');
+    ->where('id', '[\d]+')
+    ->name('adminGroupsEdit');
+Route::get('/admin/groups', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@index')
+    ->name('adminGroupsList');
 // Items
 Route::post('/admin/items/status/', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@status');
 Route::post('/admin/items/add', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@save');
