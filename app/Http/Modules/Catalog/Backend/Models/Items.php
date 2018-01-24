@@ -2,11 +2,18 @@
 
 namespace App\Http\Modules\Catalog\Backend\Models;
 
-
+/**
+ * Class Items
+ * @package App\Http\Modules\Catalog\Backend\Models
+ */
 class Items extends \App\Http\Modules\Catalog\Models\Items
 {
     protected $fillable = ['group_id', 'status', 'alias', 'name', 'h1', 'text', 'sort'];
 
+    /**
+     * @param null $id
+     * @return array
+     */
     public function getValidationRules($id = null)
     {
         return [
