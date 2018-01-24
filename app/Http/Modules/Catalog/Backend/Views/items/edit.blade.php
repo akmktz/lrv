@@ -13,8 +13,7 @@
             <div class="box-body">
                 <div class="checkbox">
                     <label>
-                        {{--TODO Сделать old('status') --}}
-                        <input type="checkbox" name="status" {{!$item || $item->status ? 'checked' : ''}}>Активен
+                        <input type="checkbox" name="status" {{!$item || old('status', $item->status) ? 'checked' : ''}}>Активен
                     </label>
                 </div>
                 <div class="form-group">
@@ -27,19 +26,19 @@
                 </div>
                 <div class="form-group">
                     <label for="inputName">Наименование</label>
-                    <input type="text" class="form-control" id="inputName" name="name" value="{{old('name') ?: $item->name}}">
+                    <input type="text" class="form-control" id="inputName" name="name" value="{{old('name', $item->name)}}">
                 </div>
                 <div class="form-group">
                     <label for="inputAlias">Алиас</label>
-                    <input type="text" class="form-control" id="inputAlias" name="alias" value="{{old('alias') ?: $item->alias}}">
+                    <input type="text" class="form-control" id="inputAlias" name="alias" value="{{old('alias', $item->alias)}}">
                 </div>
                 <div class="form-group">
                     <label for="inputH1">H1</label>
-                    <input type="text" class="form-control" id="inputH1" name="h1" value="{{old('h1') ?: $item->h1}}">
+                    <input type="text" class="form-control" id="inputH1" name="h1" value="{{old('h1', $item->h1)}}">
                 </div>
                 <div class="form-group">
                     <label for="inputText">Описание</label>
-                    <textarea id="inputText" class="ck-editor" name="text" rows="10" cols="80">{{old('text') ?: $item->text}}</textarea>
+                    <textarea id="inputText" class="ck-editor" name="text" rows="10" cols="80">{{old('text', $item->text)}}</textarea>
                 </div>
             </div>
             {{ csrf_field() }}

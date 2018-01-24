@@ -34,7 +34,7 @@ class GroupsController extends BackendController
         $item = $this->model->find((int)$id);
         $this->assignViewData('item', $item);
 
-        $groups = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get(), old('parent_id') ?: $item->parent_id, $item->id);
+        $groups = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get(), old('parent_id', $item->parent_id), $item->id);
         $this->assignViewData('groups', $groups);
     }
 
