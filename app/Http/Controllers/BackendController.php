@@ -20,10 +20,13 @@ abstract class BackendController extends Controller
         parent::__construct();
 
         // Module and controller names
-        // TODO: Дописать проверки и исключения
         $temp = preg_split('/Modules\\\\(.*?)\\\\(.*)\\\\(.*?)$/', static::class, -1, PREG_SPLIT_DELIM_CAPTURE);
         $this->moduleName = isset($temp[1]) ? strtolower($temp[1]) : '';
         $this->controllerName = isset($temp[3]) ? str_replace('controller', '', strtolower($temp[3])) : '';
+
+        if (!$this->moduleName || !$this->controllerName) {
+            throw new \Exception('Ошибка определения имени модуля и контроллера');
+        }
 
         // Route names
         $this->routeNameList = 'admin' . ucfirst($this->controllerName) . 'List';
