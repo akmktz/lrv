@@ -208,4 +208,72 @@ abstract class BackendController extends Controller
     {
         $this->assignViewData('item', clone $this->model);
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function edit($id)
+    {
+        $this->editGetData($id);
+        return $this->view($this->moduleName . '::' . $this->controllerName . '.edit', $this->viewData);
+    }
+
+    /**
+     * @param $id
+     */
+    protected function editGetData($id)
+    {
+        $item = $this->model->find((int)$id);
+        $this->assignViewData('item', $item);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function saveGetData(Request $request)
+    {
+        return $request->only($this->model->getFillable()) + $this->model->getDefaultValuesForFields();
+    }
+
+    /**
+     * @param Request $request
+     * @param null $id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function save(Request $request, $id = null)
+    {
+        $request->validate($this->model->getValidationRules($id));
+
+        $data = $this->saveGetData($request);
+
+        if ($id) {
+            $item = $this->model->find((int)$id);
+            if (!$item) {
+                return redirect()->route($this->routeNameEdit, [$item->id])
+                                 ->withErrors(['error' => 'Указан несуществующий id']);
+            }
+            $item->fill($data);
+        } else {
+            $item = $this->model->create($data);
+        }
+
+        try {
+            $item->save();
+
+            // UpdateOnCreate realisation:
+            //$item = $this->model->updateOrCreate(['id' => $id], $data);
+        } catch(\Exception $e) {
+            return redirect()->route($this->routeNameEdit, [$item->id])
+                ->withInput()
+                ->withErrors(['error' => $e->getMessage()]);
+        }
+
+        if ($request->get('submit-button') === 'save-and-close') {
+            return redirect()->route($this->routeNameList);
+        } else {
+            return redirect()->route($this->routeNameEdit, [$item->id]);
+        }
+    }
 }
