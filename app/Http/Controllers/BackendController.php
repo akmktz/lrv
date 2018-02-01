@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\View;
  */
 abstract class BackendController extends Controller
 {
-    protected $moduleName;
-    protected $controllerName;
     protected $routeNameAdd;
     protected $routeNameList;
     protected $routeNameEdit;
@@ -26,15 +24,6 @@ abstract class BackendController extends Controller
     public function __construct()
     {
         parent::__construct();
-
-        // Module and controller names
-        $temp = preg_split('/Modules\\\\(.*?)\\\\(.*)\\\\(.*?)$/', static::class, -1, PREG_SPLIT_DELIM_CAPTURE);
-        $this->moduleName = isset($temp[1]) ? strtolower($temp[1]) : '';
-        $this->controllerName = isset($temp[3]) ? str_replace('controller', '', strtolower($temp[3])) : '';
-
-        if (!$this->moduleName || !$this->controllerName) {
-            throw new \Exception('Ошибка определения имени модуля и контроллера');
-        }
 
         // Route names
         $this->routeNameList = 'admin' . ucfirst($this->controllerName) . 'List';
@@ -51,11 +40,11 @@ abstract class BackendController extends Controller
         $customUrlGenerator = new BackendUrlGenerator($routes, app()->make('request'));
         app()->instance('url', $customUrlGenerator);
 
-        // Views path
-        View::addLocation(resource_path('views') . '/backend/');
-
         // Widget path
         config(['laravel-widgets.default_namespace' => app()->getNamespace() . 'Widgets\Backend']);
+
+        // Views path
+        View::addLocation(resource_path('views') . '/backend/');
     }
 
     /**
@@ -187,7 +176,7 @@ abstract class BackendController extends Controller
     public function index()
     {
         $this->indexGetData();
-        return $this->view($this->moduleName . '::' . $this->controllerName . '.index', $this->viewData);
+        return $this->view('index', $this->viewData);
     }
 
     protected function indexGetData()
@@ -201,7 +190,7 @@ abstract class BackendController extends Controller
     public function add()
     {
         $this->addGetData();
-        return $this->view($this->moduleName . '::' . $this->controllerName . '.edit', $this->viewData);
+        return $this->view('edit', $this->viewData);
     }
 
     protected function addGetData()
@@ -216,7 +205,7 @@ abstract class BackendController extends Controller
     public function edit($id)
     {
         $this->editGetData($id);
-        return $this->view($this->moduleName . '::' . $this->controllerName . '.edit', $this->viewData);
+        return $this->view('edit', $this->viewData);
     }
 
     /**

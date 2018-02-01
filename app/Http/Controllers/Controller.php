@@ -14,24 +14,52 @@ abstract class Controller extends BaseController
 
     protected $viewPathStructure = 'Http/{module_path}/Views';
     protected $model;
+    protected $moduleName;
+    protected $controllerName;
 
+    /**
+     * Controller constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
+        $this->registerModuleAndControllerNames();
         $this->registerModuleViewNamespace();
     }
 
+    /**
+     * @throws \Exception
+     */
+    protected function registerModuleAndControllerNames()
+    {
+        // Module and controller names
+        $temp = preg_split('/Modules\\\\(.*?)\\\\(.*)\\\\(.*?)$/', static::class, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $this->moduleName = isset($temp[1]) ? strtolower($temp[1]) : '';
+        $this->controllerName = isset($temp[3]) ? str_replace('controller', '', strtolower($temp[3])) : '';
+
+        if (!$this->moduleName || !$this->controllerName) {
+            throw new \Exception('Ошибка определения имени модуля и контроллера');
+        }
+    }
+
+    /**
+     *
+     */
     protected function registerModuleViewNamespace()
     {
         $controller = get_called_class();
         $namespace = explode('\\', $controller);
-        $moduleName = mb_strtolower(array_get($namespace, 3));
 
         $viewDir = str_replace('{module_path}', implode('/', array_slice($namespace, 2, 3)), $this->viewPathStructure);
         $viewDir = app_path($viewDir);
 
-        View::addNamespace($moduleName, $viewDir);
+        // Views path
+        View::addLocation($viewDir . '/' . $this->controllerName);
     }
 
+    /**
+     * @return bool|mixed|null|string|string[]
+     */
     public function getAppSide()
     {
         $controller = get_called_class();
@@ -46,6 +74,12 @@ abstract class Controller extends BaseController
         }
     }
 
+    /**
+     * @param null $view
+     * @param array $data
+     * @param array $mergeData
+     * @return $this
+     */
     public function view($view = null, $data = [], $mergeData = [])
     {
         return view($view, $data, $mergeData)->with('_SEO', ['h1' => $this->getAppSide()]);

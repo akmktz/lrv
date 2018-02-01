@@ -23,8 +23,13 @@ class GroupsController extends BackendController
 
     public function indexGetData()
     {
-        $list = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get());
-        array_shift($list);
+        $temp = $this->model->orderBy('sort', 'ASC')->get();
+        $list = [];
+        foreach ($temp as $item) {
+            $list[$item->parent_id][$item->id] = $item;
+        }
+        //$list = $this->createHierarchicalList($this->model->orderBy('sort', 'ASC')->get());
+        //array_shift($list);
         $this->assignViewData('list', $list);
     }
 
