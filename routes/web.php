@@ -17,6 +17,7 @@ Route::get('/admin/pages', '\App\Http\Modules\Pages\Backend\Controllers\SystemCo
 // Catalog
 // Groups
 Route::post('/admin/groups/status/', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@status');
+Route::post('/admin/groups/sort/', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@sort');
 Route::post('/admin/groups/add', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@save');
 Route::get('/admin/groups/add', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@add')
     ->name('adminGroupsAdd');

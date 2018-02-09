@@ -33,31 +33,35 @@ $(function () {
     // Nestable2
     $('.dd').nestable({
         callback: function(l, e, p){
-            // l is the main container
-            // e is the element that was moved
-            // console.log('Moved');
-            // console.log(l);
-            // console.log(p);
-            // console.log(e.data('id'));
-            // console.log(l.data('id'));
-            // console.log(l.nestable('serialize'));
-            console.log(l.nestable('toArray'));
-
-            var item;
-            var id = e.data('id');
-            var data = l.nestable('toArray');
-            if (data.length) {
-                for (var i = 0 ; i < data.length ; i++) {
-                    if (id === data[i].id) {
-                        console.log(data[i]);
-                    }
-                }
+            var $configTag = $('#js-page-parameters');
+            if (!$configTag.length) {
+                return false;
             }
 
-            // p.find('.dd-item').each(function (id, item) {
-            //     console.log(item);
-            // });
-            console.log('-------------------------------------------------------');
+            var url = $configTag.data('url');
+            var data = l.nestable('serialize');
+            var token = $configTag.data('token');
+            if (!url || !data || !token) {
+                return false;
+            }
+
+            $.ajax({
+                url: url + '/sort',
+                method: "POST",
+                data: {
+                    'data': data,
+                    '_token': token
+                },
+                dataType: 'JSON',
+                success: function (response) {
+                    if (!response.success) {
+                        notyAlert(response.message ? response.message : 'Ошибка', 'error');
+                    }
+                },
+                error: function () {
+                    notyAlert('Ошибка связи', 'error');
+                }
+            });
         }
     });
 

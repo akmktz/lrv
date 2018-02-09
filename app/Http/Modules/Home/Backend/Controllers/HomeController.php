@@ -10,11 +10,6 @@ use App\Http\Controllers\BackendController;
  */
 class HomeController extends BackendController
 {
-    /**
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        return $this->view('home::home');
-    }
+    //
+
 }

@@ -171,7 +171,7 @@ abstract class BackendController extends Controller
     // ACTIONS
 
     /**
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     * @return $this
      */
     public function index()
     {
@@ -181,6 +181,10 @@ abstract class BackendController extends Controller
 
     protected function indexGetData()
     {
+        if (!$this->model) {
+            return;
+        }
+
         $this->assignViewData('list', $this->model->orderBy('name', 'ASC')->paginate(50));
     }
 
@@ -195,6 +199,10 @@ abstract class BackendController extends Controller
 
     protected function addGetData()
     {
+        if (!$this->model) {
+            return;
+        }
+
         $this->assignViewData('item', clone $this->model);
     }
 
