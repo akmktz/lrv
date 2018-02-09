@@ -56,6 +56,7 @@ abstract class BackendController extends Controller
         $this->viewData[$key] = $value;
     }
 
+    // TODO: refactor
     /**
      * @param $data
      * @param null $currentId
@@ -231,7 +232,16 @@ abstract class BackendController extends Controller
      */
     protected function saveGetData(Request $request)
     {
-        return $request->only($this->model->getFillable()) + $this->model->getDefaultValuesForFields();
+        $images = [];
+        $imagesConfig = $this->model->getImagesConfig();
+        if (count($imagesConfig)) {
+            foreach ($imagesConfig as $postParamName => $dbColumnName) {
+                $images[$dbColumnName] = $request->file($postParamName)->store('images');
+            }
+
+        }
+
+        return $images + $request->only($this->model->getFillable()) + $this->model->getDefaultValuesForFields();
     }
 
     /**

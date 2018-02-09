@@ -8,7 +8,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" method="POST">
+        <form role="form" method="POST" enctype="multipart/form-data">
             <div class="box-body">
                 <div class="checkbox">
                     <label>
@@ -43,6 +43,15 @@
                     {{--<label for="inputSort">Сортировка</label>--}}
                     {{--<input type="number" class="form-control max-w-100" id="inputSort" name="sort" value="{{old('sort', $item->sort)}}">--}}
                 {{--</div>--}}
+                <div class="form-group">
+                    <label for="inputSort">Изображение</label>
+                    @if($item->image && $item->imageExist())
+                        <br>
+                        <img src="{{$item->imageUrl()}}" class="form-image">
+                    @else
+                        <input type="file" name="file">
+                    @endif
+                </div>
             </div>
             {{ csrf_field() }}
             <div class="box-footer">

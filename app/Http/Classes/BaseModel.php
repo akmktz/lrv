@@ -3,12 +3,21 @@
 namespace App\Http\Classes;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class BaseModel
+ * @package App\Http\Classes
+ */
 class BaseModel extends Model
 {
+    protected $images = []; // postParamName => dbColumnName
     protected $fillable = [];
     protected $defaultValuesForFields = ['status' => false];
 
+    /**
+     * @return string
+     */
     public function getStatusClass()
     {
         if (!isset($this->status)) {
@@ -22,11 +31,18 @@ class BaseModel extends Model
         }
     }
 
+    /**
+     * @return array
+     */
     public function getFillable()
     {
-        return (array)$this->fillable;
+        return((array)$this->fillable); // + array_values((array)$this->images);
     }
 
+    /**
+     * @param null $id
+     * @return array
+     */
     public function getValidationRules($id = null)
     {
         return [
@@ -35,9 +51,34 @@ class BaseModel extends Model
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getDefaultValuesForFields()
     {
         return (array)$this->defaultValuesForFields;
+    }
+
+    /**
+     * @return array
+     */
+    public function getImagesConfig()
+    {
+        return (array)$this->images;
+    }
+
+    /**
+     * @param string $columnName
+     * @return mixed
+     */
+    public function imageExist($columnName = 'image')
+    {
+        return Storage::exists($this->$columnName);
+    }
+
+    public function imageUrl($columnName = 'image')
+    {
+        return Storage::url($this->$columnName);
     }
 
 }
