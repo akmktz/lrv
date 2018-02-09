@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class BaseModel extends Model
 {
-    protected $images = []; // postParamName => dbColumnName
+    protected $imagesConfig = []; // postParamName => dbColumnName
     protected $fillable = [];
     protected $defaultValuesForFields = ['status' => false];
 
@@ -36,7 +36,15 @@ class BaseModel extends Model
      */
     public function getFillable()
     {
-        return((array)$this->fillable); // + array_values((array)$this->images);
+        return (array)$this->fillable;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFillableBackend()
+    {
+        return array_diff((array)$this->fillable, (array)$this->imagesConfig);
     }
 
     /**
@@ -64,7 +72,7 @@ class BaseModel extends Model
      */
     public function getImagesConfig()
     {
-        return (array)$this->images;
+        return (array)$this->imagesConfig;
     }
 
     /**

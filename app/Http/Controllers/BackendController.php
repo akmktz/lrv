@@ -236,12 +236,15 @@ abstract class BackendController extends Controller
         $imagesConfig = $this->model->getImagesConfig();
         if (count($imagesConfig)) {
             foreach ($imagesConfig as $postParamName => $dbColumnName) {
-                $images[$dbColumnName] = $request->file($postParamName)->store('images');
+                $file = $request->file($postParamName);
+                if ($file) {
+                    $images[$dbColumnName] = $file->store('images');
+                }
             }
 
         }
 
-        return $images + $request->only($this->model->getFillable()) + $this->model->getDefaultValuesForFields();
+        return $images + $request->only($this->model->getFillableBackend()) + $this->model->getDefaultValuesForFields();
     }
 
     /**
