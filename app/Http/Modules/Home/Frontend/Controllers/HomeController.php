@@ -15,6 +15,6 @@ class HomeController extends FrontendController
      */
     public function index()
     {
-        return $this->view('home::home');
+        return $this->view('index');
     }
 }
