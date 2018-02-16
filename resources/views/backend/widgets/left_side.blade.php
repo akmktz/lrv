@@ -15,62 +15,6 @@
             </div>
         </div>
 
-        <!-- search form (Optional) -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-            </div>
-        </form>
-        <!-- /.search form -->
-<?php
-     $menu = [
-         [
-             'icon' => 'fa-link',
-             'url' => 'pages',
-             'name' => 'Системные страницы',
-         ],
-         [
-             'icon' => 'fa-link',
-             'name' => 'Каталог',
-             'items' => [
-                 [
-                     'url' => 'groups',
-                     'name' => 'Группы товаров',
-                 ],
-                 [
-                     'url' => 'items',
-                     'name' => 'Товары',
-                 ],
-             ],
-         ],
-     ];
-
-     $requestPath = Request::path();
-     foreach ($menu as $key => $el) {
-         if (!is_array($el)) {
-             continue;
-         }
-
-         $menu[$key]['active'] = (!empty($el['url']) && !strncasecmp($requestPath, $elementPath = 'admin' . '/' . $el['url'], strlen($elementPath)));
-         if (!empty($el['items'])) {
-             foreach ($el['items'] as $subKey => $subEl) {
-                 if (!is_array($subEl)) {
-                     continue;
-                 }
-
-                 $active = !strncasecmp($requestPath, $elementPath = 'admin' . '/' . $subEl['url'], strlen($elementPath));
-                 $menu[$key]['items'][$subKey]['active'] = $active;
-                 if ($active) {
-                    $menu[$key]['active'] = true;
-                 }
-             }
-         }
-     }
-?>
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>

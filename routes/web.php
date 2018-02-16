@@ -44,5 +44,19 @@ Route::get('/admin/items/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\I
     ->name('adminItemsEdit');
 Route::post('/admin/items/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@save')
     ->where('id', '[\d]+');
-Route::get('/admin/items', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@index')->name('adminItemsList');
+Route::get('/admin/items', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@index')
+    ->name('adminItemsList');
+
+// Specifications
+Route::post('/admin/specifications/status/', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@status');
+Route::post('/admin/specifications/add', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@save');
+Route::get('/admin/specifications/add', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@add')
+    ->name('adminSpecificationsAdd');
+Route::get('/admin/specifications/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@edit')
+    ->where('id', '[\d]+')
+    ->name('adminSpecificationsEdit');
+Route::post('/admin/specifications/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@save')
+    ->where('id', '[\d]+');
+Route::get('/admin/specifications', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@index')
+    ->name('adminSpecificationsList');
 
