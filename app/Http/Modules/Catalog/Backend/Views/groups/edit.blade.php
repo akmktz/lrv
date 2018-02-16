@@ -19,7 +19,7 @@
                     <label>Родитель</label>
                     <select class="form-control" name="parent_id">
                         @foreach($groups as $el)
-                            <option value="{{$el['id']}}" {{$el['selected']}}>{{$el['name_hierarchical']}}</option>
+                            <option value="{{$el['id']}}" {{$el['selected']}}>{{$el['name']}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -39,10 +39,6 @@
                     <label for="inputText">Описание</label>
                     <textarea id="inputText" class="ck-editor" name="text" rows="10" cols="80">{{old('text', $item->text)}}</textarea>
                 </div>
-                {{--<div class="form-group">--}}
-                    {{--<label for="inputSort">Сортировка</label>--}}
-                    {{--<input type="number" class="form-control max-w-100" id="inputSort" name="sort" value="{{old('sort', $item->sort)}}">--}}
-                {{--</div>--}}
                 <div class="form-group">
                     <label for="inputSort">Изображение</label>
                     @if($item->imageExist())

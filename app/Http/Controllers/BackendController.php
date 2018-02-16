@@ -57,7 +57,6 @@ abstract class BackendController extends Controller
         $this->viewData[$key] = $value;
     }
 
-    // TODO: refactor
     /**
      * @param $data
      * @param null $currentId
@@ -76,7 +75,6 @@ abstract class BackendController extends Controller
 
             foreach ($data as $el) {
                 $temp[$el->parent_id][$el->id] = [
-                    'obj' => $el,
                     'name' => $el->name,
                     'parent_id' => $el->parent_id,
                     'id' => $el->id,
@@ -90,9 +88,7 @@ abstract class BackendController extends Controller
             $result = [
                 0 => [
                     'id' => 0,
-                    'parent_id' => 0,
                     'name' => '------',
-                    'name_hierarchical' => '------',
                     'selected' => (0 == $currentId ? 'selected' : ''),
                 ],
             ];
@@ -104,14 +100,9 @@ abstract class BackendController extends Controller
 
         foreach ($data[$parentId] as $id => $el) {
             $result[] = [
-                'obj' => $el['obj'],
                 'id' => $el['id'],
-                'alias' => $el['alias'],
-                'status' => $el['status'],
-                'name' => $el['name'],
-                'name_hierarchical' => $indents . $el['name'],
+                'name' => $indents . $el['name'],
                 'selected' => $id != $disabledId ? ($id == $currentId ? 'selected' : '') : 'disabled',
-                'level' => $level,
             ];
 
             if (!empty($data[$id])) {
