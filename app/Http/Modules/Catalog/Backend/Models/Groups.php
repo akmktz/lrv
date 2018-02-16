@@ -9,7 +9,7 @@ namespace App\Http\Modules\Catalog\Backend\Models;
 class Groups extends \App\Http\Modules\Catalog\Models\Groups
 {
     protected $imagesConfig = ['file' => 'image']; // postParamName => dbColumnName
-    protected $fillable = ['parent_id', 'status', 'alias', 'name', 'h1', 'text', 'sort', 'image'];
+    protected $fillable = ['parent_id', 'status', 'alias', 'name', 'h1', 'text', 'sort'];
 
     /**
      * @param null $id

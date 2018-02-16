@@ -16,6 +16,9 @@ Route::get('/admin/pages', '\App\Http\Modules\Pages\Backend\Controllers\SystemCo
 
 // Catalog
 // Groups
+Route::get('/admin/groups/delete_image/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@deleteImage')
+    ->where('id', '[\d]+');
+Route::post('/admin/groups/status/', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@status');
 Route::post('/admin/groups/status/', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@status');
 Route::post('/admin/groups/sort/', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@sort');
 Route::post('/admin/groups/add', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@save');
@@ -30,6 +33,8 @@ Route::post('/admin/groups/{id}', '\App\Http\Modules\Catalog\Backend\Controllers
 Route::get('/admin/groups', '\App\Http\Modules\Catalog\Backend\Controllers\GroupsController@index')
     ->name('adminGroupsList');
 // Items
+Route::get('/admin/items/delete_image/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@deleteImage')
+    ->where('id', '[\d]+');
 Route::post('/admin/items/status/', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@status');
 Route::post('/admin/items/add', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@save');
 Route::get('/admin/items/add', '\App\Http\Modules\Catalog\Backend\Controllers\ItemsController@add')

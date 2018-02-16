@@ -8,7 +8,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" method="POST">
+        <form role="form" method="POST" enctype="multipart/form-data">
             {{--action="{{route('adminItem', [$item->id ?: 'add'])}}">--}}
             <div class="box-body">
                 <div class="checkbox">
@@ -39,6 +39,17 @@
                 <div class="form-group">
                     <label for="inputText">Описание</label>
                     <textarea id="inputText" class="ck-editor" name="text" rows="10" cols="80">{{old('text', $item->text)}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputSort">Изображение</label>
+                    @if($item->imageExist())
+                        <br>
+                        <img src="{{$item->imageUrl()}}" class="form-image">
+                        <br>
+                        <a class="btn btn-danger btn-xs" href="{{route($routeNameList)}}/delete_image/{{$item->id}}">Удалить изображение</a>
+                    @else
+                        <input type="file" name="file">
+                    @endif
                 </div>
             </div>
             {{ csrf_field() }}

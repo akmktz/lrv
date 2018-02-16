@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Classes\BackendUrlGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
 /**
@@ -285,5 +286,28 @@ abstract class BackendController extends Controller
         } else {
             return redirect()->route($this->routeNameEdit, [$item->id]);
         }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteImage($id)
+    {
+        $item = $this->model->find((int)$id);
+        if (!$item) {
+            return redirect()->route($this->routeNameList);
+        }
+
+        if (!$item->image || !Storage::exists($item->image)) {
+            return redirect()->route($this->routeNameEdit, [$item->id]);
+        }
+
+        if (Storage::delete($item->image)) {
+            $item->image = null;
+            $item->save();
+        };
+
+        return redirect()->route($this->routeNameEdit, [$item->id]);
     }
 }

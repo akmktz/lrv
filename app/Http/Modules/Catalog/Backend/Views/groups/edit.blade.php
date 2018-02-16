@@ -45,9 +45,11 @@
                 {{--</div>--}}
                 <div class="form-group">
                     <label for="inputSort">Изображение</label>
-                    @if($item->image && $item->imageExist())
+                    @if($item->imageExist())
                         <br>
                         <img src="{{$item->imageUrl()}}" class="form-image">
+                    <br>
+                        <a class="btn btn-danger btn-xs" href="{{route($routeNameList)}}/delete_image/{{$item->id}}">Удалить изображение</a>
                     @else
                         <input type="file" name="file">
                     @endif

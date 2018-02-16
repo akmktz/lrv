@@ -8,6 +8,7 @@ namespace App\Http\Modules\Catalog\Backend\Models;
  */
 class Items extends \App\Http\Modules\Catalog\Models\Items
 {
+    protected $imagesConfig = ['file' => 'image']; // postParamName => dbColumnName
     protected $fillable = ['group_id', 'status', 'alias', 'name', 'h1', 'text', 'sort'];
 
     /**

@@ -36,7 +36,7 @@ class BaseModel extends Model
      */
     public function getFillable()
     {
-        return (array)$this->fillable;
+        return (array)$this->fillable + (array)$this->imagesConfig;
     }
 
     /**
@@ -77,10 +77,14 @@ class BaseModel extends Model
 
     /**
      * @param string $columnName
-     * @return mixed
+     * @return bool
      */
     public function imageExist($columnName = 'image')
     {
+        if (!$this->$columnName) {
+            return false;
+        }
+
         return Storage::exists($this->$columnName);
     }
 
