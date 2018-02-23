@@ -246,7 +246,7 @@ abstract class BackendController extends Controller
      */
     public function save(Request $request, $id = null)
     {
-        $request->validate($this->model->getValidationRules($id));
+        $request->validate($this->model->getValidationRules($id), $this->model->getValidationMessages());
 
         $data = $this->saveGetData($request);
 
@@ -266,7 +266,7 @@ abstract class BackendController extends Controller
 
             // UpdateOnCreate realisation:
             //$item = $this->model->updateOrCreate(['id' => $id], $data);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->route($this->routeNameEdit, [$item->id])
                 ->withInput()
                 ->withErrors(['error' => $e->getMessage()]);

@@ -17,8 +17,8 @@ class Specifications extends \App\Http\Modules\Catalog\Models\Specifications
     public function getValidationRules($id = null)
     {
         return [
-            // TODO: Изменить статическое название таблицы в правиле на имя из модели
-            'alias'    => 'required|unique:catalog_specifications,alias,' . (int)$id . '|min:2|max:255',
+            // TODO: Изменить статическое название таблицы в правиле на имя из модели, исключить дублирование
+            'alias'    => 'required|regex:/(^[0-9a-z\-\_]+$)/u|unique:catalog_specifications,alias,' . (int)$id . '|min:2|max:255',
             'name'     => 'required|min:3|max:255',
         ];
     }

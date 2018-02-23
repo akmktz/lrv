@@ -19,8 +19,8 @@ class Items extends \App\Http\Modules\Catalog\Models\Items
     {
         return [
             'group_id' => 'required',
-            // TODO: Изменить статическое название таблицы в правиле на имя из модели
-            'alias'    => 'required|unique:catalog_items,alias,' . (int)$id . '|min:2|max:255',
+            // TODO: Изменить статическое название таблицы в правиле на имя из модели, исключить дублирование
+            'alias'    => 'required|regex:/(^[0-9a-z\-\_]+$)/u|unique:catalog_items,alias,' . (int)$id . '|min:2|max:255',
             'name'     => 'required|min:3|max:255',
         ];
     }

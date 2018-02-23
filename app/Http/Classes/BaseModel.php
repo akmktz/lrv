@@ -47,17 +47,6 @@ class BaseModel extends Model
         return array_diff((array)$this->fillable, (array)$this->imagesConfig);
     }
 
-    /**
-     * @param null $id
-     * @return array
-     */
-    public function getValidationRules($id = null)
-    {
-        return [
-            'alias'    => 'required|unique:catalog_items,alias,' . (int)$id . '|min:2|max:255',
-            'name'     => 'required|min:3|max:255',
-        ];
-    }
 
     /**
      * @return array
@@ -93,4 +82,30 @@ class BaseModel extends Model
         return Storage::url($this->$columnName);
     }
 
+    /**
+     * @param null $id
+     * @return array
+     */
+    public function getValidationRules($id = null)
+    {
+        return [
+            'alias'    => 'required|regex:/(^[0-9a-z\-\_]+$)/u|unique:catalog_items,alias,' . (int)$id . '|min:2|max:255',
+            'name'     => 'required|min:3|max:255',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidationMessages()
+    {
+        return [
+            'name.required' => 'Поле "Наименование" должно быть заполнено',
+            'name.max' => 'Значение поля "Наименование" должно состоять максимум из :max символов',
+            'name.min' => 'Значение поля "Наименование" должно состоять минимум из :min символов',
+            'alias.required' => 'Поле "Алиас" должно быть заполнено',
+            'alias.unique' => 'Алиас должен быть уникальным',
+            'alias.regex' => 'Алиас должен состоять только из цифр, английских маленьких букв, символов "тире" и "подчеркивание"',
+        ];
+    }
 }

@@ -1,7 +1,7 @@
 // Notify
 function notyAlert(message, type, timeout) {
     new Noty({
-        text: message,
+        text: String(message).replace("\n", "<br>\n"),
         type: (type ? type : 'alert'),
         timeout: (timeout ? timeout : 7000),
         closeWith: ['click'],

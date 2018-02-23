@@ -57,6 +57,9 @@ Route::get('/admin/specifications/{id}', '\App\Http\Modules\Catalog\Backend\Cont
     ->name('adminSpecificationsEdit');
 Route::post('/admin/specifications/{id}', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@save')
     ->where('id', '[\d]+');
+Route::post('/admin/specifications/{id}/delete', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@deleteValue');
+Route::post('/admin/specifications/{id}/save', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@saveValue')
+    ->where('id', '[\d]+');
 Route::get('/admin/specifications', '\App\Http\Modules\Catalog\Backend\Controllers\SpecificationsController@index')
     ->name('adminSpecificationsList');
 
