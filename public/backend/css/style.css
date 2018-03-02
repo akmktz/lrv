@@ -128,3 +128,6 @@
     border: solid #e2e2e2 1px;
     padding: 5px;
 }
+select[multiple].form-control {
+    height: 200px;
+}

@@ -66,6 +66,8 @@
 <script src="{{asset('js/noty.min.js')}}"></script>
 <!-- Nestable2 -->
 <script src="{{asset('js/jquery.nestable.min.js')}}"></script>
+<!-- Bootstrap Multiselect -->
+<script src="{{asset('js/bootstrap-multiselect.js')}}"></script>
 <!-- CMS scripts -->
 <script src="{{asset('js/init.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>

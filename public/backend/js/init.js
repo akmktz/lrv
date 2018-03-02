@@ -65,5 +65,16 @@ $(function () {
         }
     });
 
+    // Bootstrap Multiselect
+    $('.js-bootstrap-multiselect').multiselect({
+        buttonWidth: '100%',
+        nonSelectedText: 'Не выбрано',
+        allSelectedText: 'Выбрано',
+        selectAllText: 'Пометить все',
+        numberDisplayed: 0,
+        enableClickableOptGroups: true,
+        enableFiltering: true,
+        includeSelectAllOption: true
+    });
 
 });

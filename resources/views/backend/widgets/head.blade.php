@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{asset('css/noty.min.css')}}">
     <!-- Nestable2 -->
     <link rel="stylesheet" href="{{asset('css/jquery.nestable.min.css')}}">
+    <!-- Bootstrap Multiselect -->
+    <link rel="stylesheet" href="{{asset('css/bootstrap-multiselect.css')}}">
     <!-- CSS style -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
