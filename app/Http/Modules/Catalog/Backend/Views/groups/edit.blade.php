@@ -62,6 +62,29 @@
                             </div>
                         </div>
                     </div>
+                    @if(!empty($specifications))
+                        <div class="widget box">
+                            <div class="widgetHeader">
+                                <div class="widgetTitle">
+                                    <i class="fa fa-gears"></i>
+                                    <label>Характеристики</label>
+                                </div>
+                            </div>
+                            <div class="widgetContent">
+                                <div class="form-group">
+                                    <select name="SPECIFICATIONS[]" multiple="" class="form-control">
+                                        @foreach($specifications as $spec)
+                                            <option
+                                            @if($spec->selected)
+                                                selected
+                                            @endif
+                                            value="{{$spec->id}}">{{$spec->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
             {{ csrf_field() }}

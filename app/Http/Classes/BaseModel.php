@@ -108,4 +108,12 @@ class BaseModel extends Model
             'alias.regex' => 'Алиас должен состоять только из цифр, английских маленьких букв, символов "тире" и "подчеркивание"',
         ];
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getEnabled()
+    {
+        return static::where('status', true)->orderBy('sort', 'ASC')->get();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Classes\BackendUrlGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
@@ -261,22 +262,36 @@ abstract class BackendController extends Controller
             $item = $this->model->create($data);
         }
 
+        DB::beginTransaction();
         try {
             $item->save();
+            $this->saveAfter($request, $item->id);
 
             // UpdateOnCreate realisation:
             //$item = $this->model->updateOrCreate(['id' => $id], $data);
         } catch (\Exception $e) {
+            DB::rollBack();
             return redirect()->route($this->routeNameEdit, [$item->id])
                 ->withInput()
                 ->withErrors(['error' => $e->getMessage()]);
         }
+
+        DB::commit();
 
         if ($request->get('submit-button') === 'save-and-close') {
             return redirect()->route($this->routeNameList);
         } else {
             return redirect()->route($this->routeNameEdit, [$item->id]);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param null $id
+     */
+    protected function saveAfter(Request $request, $id = null)
+    {
+        //
     }
 
     /**

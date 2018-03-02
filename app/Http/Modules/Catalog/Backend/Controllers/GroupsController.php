@@ -4,6 +4,8 @@ namespace App\Http\Modules\Catalog\Backend\Controllers;
 
 use App\Http\Controllers\BackendController;
 use App\Http\Modules\Catalog\Backend\Models\Groups;
+use App\Http\Modules\Catalog\Backend\Models\GroupsRelSpecifications;
+use App\Http\Modules\Catalog\Models\Specifications;
 use Illuminate\Http\Request;
 
 /**
@@ -35,14 +37,21 @@ class GroupsController extends BackendController
 
     protected function addGetData()
     {
+        // Item
         $item = clone $this->model;
         $item->sort = 0;
         $this->assignViewData('item', $item);
+
+        // Groups
         $groups = $this->createHierarchicalList(
             $this->model->orderBy('sort', 'ASC')->get(),
             old('parent_id')
         );
         $this->assignViewData('groups', $groups);
+
+        // Specifications
+        $specifications = Specifications::getEnabled();
+        $this->assignViewData('specifications', $specifications);
     }
 
     /**
@@ -50,15 +59,50 @@ class GroupsController extends BackendController
      */
     protected function editGetData($id)
     {
+        // Item
         $item = $this->model->find((int)$id);
         $this->assignViewData('item', $item);
 
+        // Groups
         $groups = $this->createHierarchicalList(
             $this->model->orderBy('sort', 'ASC')->get(),
             old('parent_id', $item->parent_id),
             $item->id
         );
         $this->assignViewData('groups', $groups);
+
+        // Specifications
+        $specifications = Specifications::getEnabled();
+
+        $selected = array_column($item->specifications->toArray(), 'specification_id', 'specification_id');
+        foreach ($specifications as &$spec) {
+            $spec->selected = isset($selected[$spec->id]);
+        }
+        unset($spec);
+
+        $this->assignViewData('specifications', $specifications);
+    }
+
+    /**
+     * @param Request $request
+     * @param null $id
+     */
+    protected function saveAfter(Request $request, $id = null)
+    {
+        $relModel = new GroupsRelSpecifications();
+        $relModel->where('group_id', $id)->delete();
+
+        $selectedSpecifications = (array)$request->get('SPECIFICATIONS');
+        if (empty($selectedSpecifications)) {
+            return;
+        }
+
+        foreach ($selectedSpecifications as $specId) {
+            $relModel->create([
+                'group_id' => $id,
+                'specification_id' => $specId
+            ])->save();
+        }
     }
 
     /**

@@ -11,5 +11,12 @@ use App\Http\Classes\BaseModel;
 class Groups extends BaseModel
 {
     public $table = 'catalog_groups';
-    //
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function specifications()
+    {
+        return $this->hasMany('App\Http\Modules\Catalog\Models\GroupsRelSpecifications', 'group_id', 'id');
+    }
 }
